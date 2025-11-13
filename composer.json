@@ -1,0 +1,21 @@
+{
+    "name": "dinorg/text-classifier",
+    "description": "Lokal textklassificering till kommunala kategorier med PHP-ML",
+    "type": "project",
+    "require": {
+        "php": "^8.1",
+        "php-ai/php-ml": "^0.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "TextClassifier\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/classify"
+    ],
+    "scripts": {
+        "train": "php src/train_and_classify.php --train",
+        "classify": "php bin/classify"
+    }
+}
