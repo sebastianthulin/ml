@@ -108,7 +108,7 @@ if (isset($argv[1]) && $argv[1] !== '--train') {
     $input = $argv[1];
     $result = classifyWithProbabilities($input, $classifier, $vectorizer);
     $maxResults = 7;
-    $prominentBreakpoint = 0.6; // 60%
+    $prominentBreakpoint = 0.4; // 60%
 
     // Prepare table header
     echo "+----------------------+-------------------+-------+\n";
