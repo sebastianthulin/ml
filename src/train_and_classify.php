@@ -78,7 +78,6 @@ function loadModel(string $modelFile): array
     $classifier = $modelManager->restoreFromFile($modelFile . '_classifier');
     $vectorizer = unserialize(file_get_contents($modelFile . '_vectorizer'));
 
-    echo "✅ Modell laddad från $modelFile\n";
     return [$classifier, $vectorizer];
 }
 
@@ -108,15 +107,27 @@ list($classifier, $vectorizer) = loadModel($modelFile);
 if (isset($argv[1]) && $argv[1] !== '--train') {
     $input = $argv[1];
     $result = classifyWithProbabilities($input, $classifier, $vectorizer);
-    $prominent = array_key_first($result);
-    echo "Prominent Category: $prominent\n";
 
-    echo "Secondary Categories (sorted by match):\n";
-    foreach ($result as $category => $probability) {
-        if ($category !== $prominent) {
-            echo " - $category: $probability\n";
+    // Prepare table header
+    echo "+----------------------+-------------------+\n";
+    echo "| Category             | Probability       |\n";
+    echo "+----------------------+-------------------+\n";
+
+    // Output each category and probability
+    // Helper for multibyte string padding
+    if (!function_exists('mb_str_pad')) {
+        function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT, $encoding = 'UTF-8') {
+            $diff = strlen($input) - mb_strlen($input, $encoding);
+            return str_pad($input, $pad_length + $diff, $pad_string, $pad_type);
         }
     }
+
+    foreach ($result as $category => $probability) {
+        $cat = mb_str_pad($category, 20);
+        $prob = str_pad(number_format($probability, 4), 17);
+        echo "| $cat | $prob |\n";
+    }
+    echo "+----------------------+-------------------+\n";
     exit;
 }
 
