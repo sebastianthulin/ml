@@ -107,11 +107,13 @@ list($classifier, $vectorizer) = loadModel($modelFile);
 if (isset($argv[1]) && $argv[1] !== '--train') {
     $input = $argv[1];
     $result = classifyWithProbabilities($input, $classifier, $vectorizer);
+    $maxResults = 7;
+    $prominentBreakpoint = 0.6; // 60%
 
     // Prepare table header
-    echo "+----------------------+-------------------+\n";
-    echo "| Category             | Probability       |\n";
-    echo "+----------------------+-------------------+\n";
+    echo "+----------------------+-------------------+-------+\n";
+    echo "| Category             | Probability       |       |\n";
+    echo "+----------------------+-------------------+-------+\n";
 
     // Output each category and probability
     // Helper for multibyte string padding
@@ -125,9 +127,14 @@ if (isset($argv[1]) && $argv[1] !== '--train') {
     foreach ($result as $category => $probability) {
         $cat = mb_str_pad($category, 20);
         $prob = str_pad(number_format($probability, 4), 17);
-        echo "| $cat | $prob |\n";
+        $check = $probability >= $prominentBreakpoint ? '✔' : 'x';
+        echo "| $cat | $prob |   $check   |\n";
+        $maxResults--;
+        if ($maxResults <= 0) {
+            break;
+        }
     }
-    echo "+----------------------+-------------------+\n";
+    echo "+----------------------+-------------------+---------+\n";
     exit;
 }
 
