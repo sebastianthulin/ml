@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'dinorg/text-classifier',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '8850ecd1f825daad5619d56f10203c0f883382f7',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'df9d11c314312aa89380749bd35d993189418a8d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'dinorg/text-classifier' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '8850ecd1f825daad5619d56f10203c0f883382f7',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'df9d11c314312aa89380749bd35d993189418a8d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
